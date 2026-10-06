@@ -1,0 +1,20 @@
+tasks:
+  - name: Backend
+    init: cd backend && npm install
+    command: cd backend && npm run demo
+    
+  - name: Frontend
+    init: cd frontend && npm install
+    command: cd frontend && npm start
+
+ports:
+  - port: 5000
+    onOpen: ignore
+    visibility: public
+  - port: 3000
+    onOpen: open-browser
+    visibility: public
+
+vscode:
+  extensions:
+    - dbaeumer.vscode-eslint

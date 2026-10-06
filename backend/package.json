@@ -1,0 +1,25 @@
+{
+  "name": "mis-report-backend",
+  "version": "2.0.0",
+  "description": "Litelo MIS Report module - API, export worker and email scheduler",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "demo": "node demo/demo-server.js",
+    "sit": "node demo/demo-server.js --sit",
+    "test": "node --test tests/*.test.js",
+    "docs:columns": "node scripts/generate-column-docs.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "exceljs": "^4.4.0",
+    "express": "^4.18.2",
+    "nodemailer": "^6.10.1",
+    "pg": "^8.23.1",
+    "pg-cursor": "^2.22.1"
+  }
+}

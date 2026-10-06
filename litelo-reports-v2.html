@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Litelo · Reports</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1e2a44; --navy-2:#2b3a58;
+  --indigo:#4f46e5; --indigo-bg:#eef0fd;
+  --blue:#2563eb;
+  --teal:#0f9b84; --teal-bg:#e6f7f4;
+  --amber:#b45309; --amber-bg:#fdf6e7;
+  --red:#b91c1c; --red-bg:#fdeeee;
+  --purple:#7c5cd6; --purple-bg:#f5eefb;
+  --page:#f5f6f8; --card:#fff; --sunk:#fafafc;
+  --t1:#16203a; --t2:#6b7280; --t3:#9aa1ae;
+  --bd:#e8eaee; --bd2:#d8dce4;
+  --c1:#4f46e5; --c2:#0f9b84; --c3:#d99323; --c4:#c2559e; --c5:#3b82f6; --c6:#7c5cd6;
+  --r:9px; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --page:#0e1117; --card:#161a22; --sunk:#12161d; --navy:#0b0e14; --navy-2:#1a2130;
+  --t1:#e8ecf4; --t2:#98a3b6; --t3:#6b7686; --bd:#252b36; --bd2:#333b49;
+  --indigo:#a5b4fc; --indigo-bg:#1e1b4b; --blue:#7fb0f5;
+  --teal:#4ecfb4; --teal-bg:#0d2b26; --amber:#e3a857; --amber-bg:#2b2113; --red:#f08a8a; --red-bg:#2c1516;
+  --c1:#a5b4fc; --c2:#4ecfb4; --c3:#e3a857; --c4:#f07ab0; --c5:#7fb0f5; --c6:#b79cf5; color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --page:#0e1117; --card:#161a22; --sunk:#12161d; --navy:#0b0e14; --navy-2:#1a2130;
+  --t1:#e8ecf4; --t2:#98a3b6; --t3:#6b7686; --bd:#252b36; --bd2:#333b49;
+  --indigo:#a5b4fc; --indigo-bg:#1e1b4b; --blue:#7fb0f5;
+  --teal:#4ecfb4; --teal-bg:#0d2b26; --amber:#e3a857; --amber-bg:#2b2113; --red:#f08a8a; --red-bg:#2c1516;
+  --c1:#a5b4fc; --c2:#4ecfb4; --c3:#e3a857; --c4:#f07ab0; --c5:#7fb0f5; --c6:#b79cf5; color-scheme:dark;}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--page);color:var(--t1);font:14px/1.55 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--indigo);outline-offset:2px;border-radius:4px}
+h1{margin:0;font-size:21px;font-weight:600;letter-spacing:-.02em}
+h3{margin:0;font-size:14px;font-weight:500}
+p{margin:0}
+.mut{color:var(--t2)} .sm{font-size:12.5px} .xs{font-size:11.5px;color:var(--t3)}
+
+/* shell */
+.shell{display:flex;min-height:100vh}
+.rail{width:240px;flex:0 0 240px;background:var(--card);border-right:1px solid var(--bd);padding:16px 14px;display:flex;flex-direction:column;gap:3px}
+.brand{display:flex;align-items:center;gap:10px;padding:6px 10px 26px;font-weight:600;font-size:20px;letter-spacing:-.02em;color:var(--t1)}
+.nav{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#4b5563;font-size:14.5px;width:100%;text-align:left}
+:root[data-theme="dark"] .nav{color:var(--t2)}
+.nav:hover{background:var(--sunk);color:var(--t1)}
+.nav[aria-current="page"]{background:var(--indigo-bg);color:var(--indigo);font-weight:500}
+.nav svg{flex:none}
+.col{flex:1;min-width:0;display:flex;flex-direction:column}
+.top{background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:30}
+.ti{padding:0 24px;display:flex;align-items:center;justify-content:flex-end;gap:14px;min-height:60px;flex-wrap:wrap}
+.av{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:12px;font-weight:600;flex:none}
+:root[data-theme="dark"] .av{background:var(--indigo);color:#0e1117}
+.who{display:flex;align-items:center;gap:10px;padding-left:14px;border-left:1px solid var(--bd)}
+.who p{font-size:13.5px;font-weight:500;line-height:1.3}
+.who small{color:var(--t3);font-size:11.5px}
+.content{padding:0 24px 80px}
+.tabs{display:flex;gap:24px;border-bottom:1px solid var(--bd);margin:0 -24px 20px;padding:0 24px;background:var(--card)}
+.tabs button{padding:15px 0 13px;border-bottom:2px solid transparent;color:var(--t2);font-size:14px}
+.tabs button[aria-current="page"]{color:var(--indigo);font-weight:500;border-bottom-color:var(--indigo)}
+.tabs button:hover{color:var(--t1)}
+.rolesw{display:flex;border:1px solid var(--bd);border-radius:20px;padding:2px;gap:2px}
+.rolesw button{padding:5px 13px;border-radius:20px;font-size:12px;color:var(--t2)}
+.rolesw button[aria-pressed="true"]{background:var(--indigo-bg);color:var(--indigo);font-weight:500}
+.iconbtn{width:32px;height:32px;border:1px solid var(--bd);border-radius:var(--r);display:grid;place-items:center;color:var(--t2)}
+.iconbtn:hover{background:var(--sunk)}
+main{padding-top:22px}
+@media (max-width:880px){.rail{display:none}.content{padding:0 16px 70px}.tabs{margin:0 -16px 18px;padding:0 16px}}
+
+/* filter bar */
+.fbar{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:14px 16px;margin-bottom:18px;display:flex;gap:18px;align-items:flex-end;flex-wrap:wrap}
+.fg{display:flex;flex-direction:column;gap:6px}
+.fg > span{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--t3)}
+.seg{display:inline-flex;background:var(--sunk);border:1px solid var(--bd);border-radius:9px;padding:3px;gap:2px;flex-wrap:wrap}
+.seg button{padding:6px 13px;border-radius:6px;font-size:13px;color:var(--t2);white-space:nowrap}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--t1);font-weight:500;box-shadow:0 0 0 1px var(--bd2)}
+select,input[type=text],input[type=date],input[type=number],input[type=search],textarea{border:1px solid var(--bd2);background:var(--card);border-radius:var(--r);padding:8px 11px;min-height:37px;width:100%}
+textarea{min-height:62px;resize:vertical;line-height:1.5}
+select{cursor:pointer}
+.fg select{min-width:190px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:var(--r);border:1px solid var(--bd2);background:var(--card);font-size:13.5px;font-weight:500;white-space:nowrap}
+.btn:hover{background:var(--sunk)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+:root[data-theme="dark"] .btn.primary{background:var(--indigo);color:#0e1117;border-color:var(--indigo)}
+.btn.primary:hover{opacity:.92}
+.btn.sm{padding:5px 10px;font-size:12.5px}
+.btn.gh{border-color:transparent;background:none}
+.btn.gh:hover{background:var(--sunk)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.dngr{color:var(--red)}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover{opacity:.9}
+.ib{width:28px;height:28px;border:1px solid var(--bd);border-radius:6px;display:inline-grid;place-items:center;color:var(--t2);background:var(--card)}
+.ib:hover:not(:disabled){color:var(--t1);border-color:var(--bd2)}
+.ib:disabled{opacity:.3;cursor:default}
+
+/* head */
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:16px}
+.ph p{margin-top:4px;max-width:72ch}
+
+/* panels */
+.panel{background:var(--card);border:1px solid var(--bd);border-radius:12px}
+.pad{padding:18px}
+.sec{padding:20px 22px;border-top:1px solid var(--bd)}
+.sec:first-child{border-top:0}
+.sh{display:flex;gap:12px;align-items:flex-start;margin-bottom:14px}
+.step{flex:none;width:23px;height:23px;border-radius:50%;background:var(--indigo-bg);color:var(--indigo);font-weight:600;font-size:11.5px;display:grid;place-items:center;margin-top:1px}
+.fld{display:block;margin-bottom:14px}
+.fld > span{display:block;font-size:12px;font-weight:500;margin-bottom:5px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.row > *{flex:1 1 210px}
+.hint{font-size:11.5px;color:var(--t3);margin-top:5px}
+
+/* table */
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%}
+th{text-align:left;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--t3);font-weight:500;padding:11px 14px;border-bottom:1px solid var(--bd);background:var(--sunk);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--bd);vertical-align:top}
+tbody tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right}
+tr.tot td{font-weight:500;background:var(--sunk)}
+.pill{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:500;border:1px solid;white-space:nowrap}
+.p-a{color:var(--teal);border-color:var(--teal);background:var(--teal-bg)}
+.p-d{color:var(--amber);border-color:var(--amber);background:var(--amber-bg)}
+.p-n{color:var(--t2);border-color:var(--bd2);background:var(--sunk);font-weight:400}
+.p-i{color:var(--indigo);border-color:var(--indigo);background:var(--indigo-bg)}
+.empty{padding:50px 20px;text-align:center}
+.empty p{margin:7px auto 16px;max-width:44ch;color:var(--t2);font-size:13px}
+
+/* builder */
+.bl{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:18px;align-items:start}
+@media (max-width:1140px){.bl{grid-template-columns:1fr}}
+.side{position:sticky;top:76px;display:flex;flex-direction:column;gap:14px}
+@media (max-width:1140px){.side{position:static}}
+
+/* column picker */
+.pick{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.pick{grid-template-columns:1fr}}
+.pane{border:1px solid var(--bd);border-radius:10px;display:flex;flex-direction:column;overflow:hidden}
+.pane-h{padding:9px 12px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--sunk)}
+.pane-h strong{font-size:12.5px;font-weight:500}
+.pane-tools{padding:9px 12px;border-bottom:1px solid var(--bd);display:flex;gap:8px}
+.pane-tools input{min-height:33px;padding:6px 10px;font-size:13px}
+.pane-tools select{min-height:33px;padding:6px 8px;font-size:12.5px;width:auto;max-width:150px}
+.pane-b{max-height:430px;overflow:auto}
+.pane-b table th{position:sticky;top:0;z-index:1;font-size:10.5px}
+.pane-b td{padding:7px 12px;font-size:12.5px}
+.pane-b tr{cursor:pointer}
+.pane-b tr:hover td{background:var(--sunk)}
+.cb{width:15px;height:15px;accent-color:var(--indigo);cursor:pointer}
+.tg{display:inline-block;font-size:10px;padding:1px 6px;border-radius:20px;background:var(--sunk);border:1px solid var(--bd);color:var(--t3)}
+.tg.calc{background:var(--teal-bg);border-color:transparent;color:var(--teal)}
+.selrow{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:8px;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bd)}
+.selrow:last-child{border-bottom:0}
+.selrow .ix{color:var(--t3);font-size:11.5px;text-align:right}
+.selrow input[type=text]{min-height:30px;padding:4px 8px;font-size:12.5px}
+.selrow .src{font-size:11px;color:var(--t3);margin-top:3px;display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.selrow .src select{width:auto;min-height:24px;padding:1px 5px;font-size:11px}
+.selrow .acts{display:flex;gap:3px}
+
+/* filters */
+.frow{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.95fr) minmax(0,1fr) 28px;gap:8px;align-items:center;margin-bottom:8px}
+@media (max-width:660px){.frow{grid-template-columns:1fr 1fr}.frow .ib{justify-self:end}}
+.frow select,.frow input{min-height:34px;padding:6px 9px;font-size:13px}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--indigo-bg);color:var(--indigo);border-radius:20px;padding:3px 10px;font-size:12px;font-weight:500}
+
+/* summary blocks */
+.srow{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.1fr) minmax(0,1.1fr) 28px;gap:8px;align-items:center;margin-bottom:8px}
+@media (max-width:660px){.srow{grid-template-columns:1fr 1fr}.srow .ib{justify-self:end}}
+.srow select{min-height:34px;padding:6px 9px;font-size:13px}
+.kpis{display:flex;gap:7px;flex-wrap:wrap}
+.kpi{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--bd2);border-radius:20px;padding:5px 12px;font-size:12.5px}
+.kpi input{accent-color:var(--indigo)}
+.kpi:has(input:checked){border-color:var(--indigo);background:var(--indigo-bg);color:var(--indigo)}
+
+/* sentence */
+.sent{font-size:14.5px;line-height:1.7}
+.v{background:var(--indigo-bg);color:var(--indigo);padding:1px 7px;border-radius:5px;font-weight:500;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.v.miss{background:var(--red-bg);color:var(--red)}
+.errs{background:var(--red-bg);color:var(--red);border-radius:var(--r);padding:11px 13px;font-size:12.5px}
+.errs ul{margin:4px 0 0;padding-left:17px}
+.pv table{font-size:12px}
+.pv th,.pv td{padding:6px 10px;white-space:nowrap}
+.pv .tw{border-radius:8px}
+.acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+
+/* charts */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px}
+.cbox{border:1px solid var(--bd);border-radius:10px;padding:12px}
+.cbox h4{margin:0 0 9px;font-size:12px;font-weight:500;color:var(--t2)}
+.kstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(125px,1fr));gap:10px;margin-bottom:13px}
+.kcard{background:var(--sunk);border-radius:var(--r);padding:11px 13px}
+.kcard .kl{font-size:11px;color:var(--t3)}
+.kcard .kv{font-size:19px;font-weight:600;letter-spacing:-.02em;margin-top:2px}
+.lg{display:flex;flex-wrap:wrap;gap:7px;margin-top:8px}
+.lg span{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;color:var(--t2)}
+.sw{width:9px;height:9px;border-radius:2px;flex:none}
+
+/* run */
+.run{display:grid;grid-template-columns:330px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:980px){.run{grid-template-columns:1fr}}
+.ropt{display:block;border:1px solid var(--bd);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer}
+.ropt:has(input:checked){border-color:var(--indigo);box-shadow:0 0 0 1px var(--indigo);background:var(--indigo-bg)}
+.ropt input{position:absolute;opacity:0;pointer-events:none}
+.ropt strong{display:block;font-weight:500;font-size:13.5px}
+.presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+.presets button{border:1px solid var(--bd2);border-radius:20px;padding:4px 11px;font-size:12.5px;background:var(--card)}
+.presets button[aria-pressed="true"]{background:var(--indigo-bg);border-color:var(--indigo);color:var(--indigo);font-weight:500}
+.rh{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-bottom:13px}
+.shtabs{display:flex;gap:4px;background:var(--sunk);border:1px solid var(--bd);border-radius:9px;padding:3px;margin-bottom:14px;width:fit-content}
+.shtabs button{padding:6px 14px;border-radius:6px;font-size:12.5px;color:var(--t2)}
+.shtabs button[aria-pressed="true"]{background:var(--card);color:var(--t1);font-weight:500;box-shadow:0 0 0 1px var(--bd2)}
+
+.note{display:flex;gap:10px;padding:11px 13px;border-radius:var(--r);font-size:12.5px;border:1px solid var(--bd);background:var(--sunk);color:var(--t2);margin-bottom:14px}
+.note b{font-weight:500;color:var(--t1)}
+/* modal */
+.ov{position:fixed;inset:0;background:rgba(22,32,58,.45);display:none;align-items:center;justify-content:center;padding:20px;z-index:70}
+.ov.open{display:flex}
+.modal{background:var(--card);border-radius:14px;width:100%;max-width:460px;padding:22px;max-height:88vh;overflow:auto}
+.modal h2{margin:0 0 4px;font-size:17px;font-weight:600;letter-spacing:-.01em}
+.modal .macts{display:flex;justify-content:flex-end;gap:9px;margin-top:4px}
+.emchips{border:1px solid var(--bd2);border-radius:var(--r);padding:7px;min-height:42px;display:flex;flex-wrap:wrap;gap:6px;align-items:center;background:var(--card)}
+.emchips input{border:0;outline:0;flex:1;min-width:130px;min-height:26px;padding:2px 4px;background:none}
+.emchip{display:inline-flex;align-items:center;gap:6px;background:var(--indigo-bg);color:var(--indigo);border-radius:20px;padding:3px 7px 3px 11px;font-size:12.5px;font-weight:500}
+.emchip button{display:grid;place-items:center;width:16px;height:16px;border-radius:50%;color:var(--indigo)}
+.emchip button:hover{background:var(--card)}
+.sched{display:flex;align-items:center;gap:11px;justify-content:space-between;flex-wrap:wrap;background:var(--indigo-bg);border:1px solid var(--indigo);border-radius:var(--r);padding:10px 13px;font-size:12.5px;color:var(--indigo);margin-bottom:13px}
+.sched b{font-weight:600}
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(16px);background:var(--navy);color:#fff;padding:11px 17px;border-radius:10px;opacity:0;transition:.2s;pointer-events:none;z-index:60;max-width:90vw;font-size:13px}
+:root[data-theme="dark"] .toast{background:var(--indigo);color:#0e1117}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+</style>
+</head>
+<body>
+<div class="shell">
+<aside class="rail">
+  <div class="brand"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 15.5 11 3h5.5L8.5 15.5H3Z" fill="#c9a227"/><path d="M8 21 16 8.5h5.5L13.5 21H8Z" fill="currentColor"/></svg>Litelo</div>
+  <button class="nav"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>Dashboard</button>
+  <button class="nav"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M7 21h10M5 7h14M5 7 2 14h6L5 7Zm14 0-3 7h6l-3-7Z"/></svg>Cheque Bounce</button>
+  <button class="nav"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M4 10v8M9 10v8M15 10v8M20 10v8M12 3 3 8h18l-9-5Z"/></svg>EFT Dishonour</button>
+  <button class="nav"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 9-5 5m-3-8 6 6M4 20h9M8.5 3.5l6 6M17 12l4 4-2 2-4-4"/></svg>Case Tracker</button>
+  <button class="nav" aria-current="page"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h9l5 5v13H5V3Zm9 0v5h5M9 13h6M9 17h6"/></svg>Report</button>
+</aside>
+<div class="col">
+  <header class="top"><div class="ti">
+    <button class="iconbtn" id="theme" aria-label="Toggle theme">◐</button>
+    <div class="who"><div class="av">AR</div><div><p>Aleem Rayeen</p><small>aleem.rayeen@presolv360.com</small></div></div>
+  </div></header>
+  <div class="content">
+    <nav class="tabs" id="tabs" aria-label="Reports"></nav>
+    <main id="main"></main>
+  </div>
+</div>
+</div>
+<div class="ov" id="ov"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================== CATALOGUE ===================== */
+const F=(k,l,t,x={})=>({k,l,t,...x});
+const WF={s138:'Section 138',s25:'Section 25',sarf:'SARFAESI'};
+const ENTS=['ABC Bank','HDFC Bank','Bajaj Finance','Tata Capital','Muthoot Finance','Vastu Finserve'];
+const STATES=['Maharashtra','Karnataka','Delhi','Tamil Nadu','Gujarat','Uttar Pradesh','Rajasthan','West Bengal'];
+const ZONES=['North','South','East','West'];
+const NI_STAGES=['Pre-notice','Notice sent','Notice served','Payment window','Complaint filed','Cognizance','Summons','Appearance','Evidence','Arguments','Judgment','Closed'];
+const SARF_STAGES=['NPA classified','13(2) issued','60-day period','Objection reply','Symbolic possession','Section 14 filed','Physical possession','Valuation','Sale notice','Auction','Sale completed','Closed'];
+const MODES=['RPAD','Speed Post','Courier','Email','WhatsApp','SMS'];
+const DELIV=['Delivered','Undelivered','Refused','Addressee left','In transit'];
+const REPLY_CAT=['I want to settle','I need more time','I dispute this','Speak to someone','No reply'];
+
+const common=wf=>[
+ {g:'Case and batch',f:[
+  F('case_id','Case ID','text',{d:'Litelo case reference'}),
+  F('batch_id','Batch ID','text',{d:'Batch the case was ingested in'}),
+  F('lan','Loan account number','text'),
+  F('agreement_no','Agreement number','text'),
+  F('case_created_date','Case created date','date'),
+ ]},
+ {g:'Borrower',f:[
+  F('borrower_name','Borrower name','text'),
+  F('borrower_father','Father name','text'),
+  F('co_borrower','Co-borrower / guarantor','text',{m:1}),
+  F('borrower_address','Full address','text'),
+  F('borrower_mobile','Mobile','text'),
+  F('borrower_whatsapp','WhatsApp number','text'),
+  F('borrower_email','Email','text'),
+  F('borrower_status','Borrower status','enum',{o:['Individual','Sole proprietor','Company','LLP','Deceased','Untraceable']}),
+  F('borrower_language','Preferred language','enum',{o:['Hindi','Marathi','Tamil','Kannada','Gujarati','Bengali','English']}),
+ ]},
+ {g:'Claimant',f:[
+  F('claimant_name','Claimant name','text'),
+  F('claimant_address','Claimant registered address','text'),
+  F('auth_rep','Authorised representative','text'),
+  F('auth_rep_email','Representative email','text'),
+ ]},
+ {g:'Loan',f:[
+  F('product','Product','enum',{o:['Personal loan','Business loan','Home loan','Loan against property','Vehicle loan','Consumer durable']}),
+  F('sanction_amount','Sanctioned amount','amount'),
+  F('disbursal_date','Disbursal date','date'),
+  F('emi_amount','EMI amount','amount'),
+  F('dpd','DPD','number',{d:'Days past due as on report date'}),
+  F('pos','Principal outstanding','amount'),
+  F('total_outstanding','Total outstanding','amount'),
+ ]},
+ {g:'Location',f:[
+  F('branch','Branch','text'),F('zone','Zone','enum',{o:ZONES}),
+  F('state','State','enum',{o:STATES}),F('city','City','text'),F('pincode','Pincode','text'),
+ ]},
+ {g:'Case tracking',f:[
+  F('stage','Stage','enum',{o:wf==='sarf'?SARF_STAGES:NI_STAGES}),
+  F('sub_stage','Sub stage','text'),
+  F('prev_sub_stage','Previous sub stage','text'),
+  F('next_sub_stage','Next sub stage (expected)','text'),
+  F('stage_entry_date','In current stage since','date'),
+  F('case_status','Case status','enum',{o:['Open','On hold','Settled','Closed','Withdrawn']}),
+  F('advocate','Assigned advocate','text'),
+  F('law_firm','Law firm','text'),
+  F('jurisdiction','Jurisdiction','text'),
+  F('last_action','Last action','text'),F('last_action_date','Last action date','date'),
+  F('next_action','Next action','text'),F('next_action_date','Next action date','date'),
+  F('remarks','Remarks','text',{m:1}),
+ ]},
+];
+const comms=[
+ {g:'Communication and replies',f:[
+  F('sms_status','SMS status','enum',{o:['Sent','Delivered','Failed','Not sent']}),
+  F('email_status','Email status','enum',{o:['Sent','Delivered','Opened','Bounced','Not sent']}),
+  F('wa_status','WhatsApp status','enum',{o:['Sent','Delivered','Read','Not on WhatsApp','Failed']}),
+  F('link_opened','Reply link opened','bool'),
+  F('reply_category','Category of reply','enum',{o:REPLY_CAT,m:1,d:'Fixed four options on the reply link'}),
+  F('reply_count','Number of replies','number',{c:1}),
+  F('reply_date','Reply date','date',{m:1}),
+  F('reply_channel','Channel replied from','enum',{m:1,o:['SMS','Email','WhatsApp']}),
+  F('reply_text','Full reply text','text',{m:1}),
+  F('reply_doc','Supporting document','text',{m:1}),
+ ]},
+];
+const tail=[
+ {g:'Settlement and recovery',f:[
+  F('settlement_status','Settlement status','enum',{o:['Not initiated','In discussion','Agreed','Paid in full','Defaulted on settlement']}),
+  F('settlement_amount','Settlement amount','amount'),
+  F('payment_date','Payment received date','date',{m:1}),
+  F('amount_recovered','Total recovered','amount',{c:1,d:'Sum of all payments on the case'}),
+  F('closure_date','Closure date','date'),
+  F('closure_reason','Closure reason','enum',{o:['Paid in full','Settled','Judgment executed','Withdrawn','Written off','Sale completed']}),
+ ]},
+ {g:'Legal cost',f:[
+  F('advocate_fee','Advocate fee','amount',{m:1}),F('court_fee','Court fee','amount'),
+  F('notice_cost','Notice dispatch cost','amount'),F('total_cost','Total legal cost','amount',{c:1}),
+  F('invoice_status','Invoice status','enum',{o:['Not raised','Raised','Approved','Paid','Disputed']}),
+ ]},
+];
+const niBlocks=kind=>{const trig=kind==='s138'?'return memo':'return information';return[
+ {g:'Demand notice',f:[
+  F('notice_due_by','Notice due by','date',{c:1,d:trig[0].toUpperCase()+trig.slice(1)+' received + 30 days'}),
+  F('notice_id','Notice ID','text'),
+  F('notice_date','Notice date','date'),
+  F('notice_language','Notice language','enum',{o:['English','Hindi','Marathi','Tamil','Kannada','Gujarati','Bengali']}),
+  F('notice_mode','Dispatch mode','enum',{m:1,o:MODES}),
+  F('notice_tracking','Tracking / POD number','text',{m:1}),
+  F('notice_dispatch_date','Courier dispatch date','date'),
+  F('notice_delivery','Delivery status','enum',{m:1,o:DELIV}),
+  F('notice_served_date','Notice served date','date'),
+  F('undeliver_reason','Reason of undelivery','enum',{o:['Refused','Unclaimed','Addressee moved','Insufficient address','Door locked','Deceased']}),
+  F('payment_due_date','Payment due by','date',{c:1,d:'Served date + 15 days'}),
+  F('paid_in_window','Paid within notice period','bool'),
+ ]},
+ {g:'Complaint filing',f:[
+  F('cause_of_action','Cause of action date','date',{c:1,d:'Day after the 15-day window ends'}),
+  F('limitation_date','Complaint limitation date','date',{c:1,d:'Cause of action + 1 month'}),
+  F('filing_date','Complaint filing date','date'),
+  F('filing_status','Filing status','enum',{o:['Not filed','Drafted','Filed','Returned','Rejected']}),
+  F('court_name','Court','text'),F('court_city','Court city','text'),
+  F('complaint_no','Complaint (CC) number','text'),F('cnr_no','CNR number','text'),
+  F('cognizance_date','Cognizance date','date'),
+ ]},
+ {g:'Proceedings',f:[
+  F('summons_date','Summons issued date','date'),
+  F('summons_status','Summons status','enum',{o:['Served','Unserved','Refused','Awaiting report']}),
+  F('reissue_date','Reissue summons date','date'),
+  F('warrant_type','Warrant issued','enum',{o:['None','Bailable','Non-bailable']}),
+  F('warrant_date','Warrant order date','date'),
+  F('warrant_status','Warrant status','enum',{o:['Ordered','Issued','Executed','Returned unexecuted']}),
+  F('proclaimed','Proclaimed offender','bool'),
+  F('first_appearance','Accused first appearance','date'),
+  F('interim_comp','Interim compensation ordered','bool',{d:'Section 143A, up to 20% of the amount'}),
+  F('interim_amount','Interim compensation amount','amount'),
+  F('hearing_date','Hearing date','date',{m:1}),
+  F('prev_hearing','Previous hearing date','date'),
+  F('next_hearing','Next hearing date','date'),
+  F('hearing_count','Number of hearings','number',{c:1}),
+  F('mediation','Referred to Lok Adalat / mediation','bool'),
+ ]},
+ {g:'Judgment',f:[
+  F('judgment_date','Judgment date','date'),
+  F('judgment_outcome','Judgment outcome','enum',{o:['Convicted','Acquitted','Compounded','Withdrawn','Dismissed']}),
+  F('compensation','Compensation awarded','amount'),
+  F('withdrawal_date','Date of withdrawal','date'),
+  F('withdrawal_status','Status of withdrawal','enum',{o:['Not applicable','Applied','Allowed','Rejected']}),
+  F('appeal_filed','Appeal filed','bool'),
+  F('appeal_status','Appeal status','enum',{o:['Pending','Allowed','Dismissed','Withdrawn']}),
+ ]},
+]};
+const niCalc={g:'Calculated timelines',f:[
+ F('d_dishonour_notice','Days: dishonour to notice','number',{c:1}),
+ F('d_notice_complaint','Days: notice to complaint','number',{c:1}),
+ F('notice_breach','Notice sent after 30-day limit','bool',{c:1}),
+ F('limitation_breach','Complaint filed after limitation','bool',{c:1}),
+ F('limitation_health','Limitation status','enum',{c:1,o:['On track','At risk','Breached','Time-barred']}),
+ F('days_in_stage','Days in current stage','number',{c:1}),
+ F('case_age','Case age (days)','number',{c:1}),
+ F('ageing','Ageing bucket','enum',{c:1,o:['0–30 days','31–90 days','91–180 days','181–365 days','Over 1 year']}),
+]};
+
+const CAT={
+ s138:[...common('s138'),
+  {g:'Cheque',f:[F('cheque_no','Cheque number','text'),F('cheque_date','Cheque date','date'),F('cheque_amount','Cheque amount','amount'),
+   F('drawer_bank','Drawer bank','text'),F('drawer_branch','Drawer branch','text'),
+   F('payee_branch','Presenting (payee) branch','text',{d:'Decides court jurisdiction'}),
+   F('cheque_purpose','Cheque purpose','enum',{o:['EMI','Security cheque','Foreclosure','Settlement']})]},
+  {g:'Dishonour',f:[F('presentation_date','Presentation date','date',{m:1}),F('presentation_count','Number of presentations','number',{c:1}),
+   F('return_date','Dishonour date','date'),F('memo_no','Memo number','text'),F('memo_date','Return memo date','date'),
+   F('memo_received','Memo received date','date',{d:'Starts the 30-day notice window'}),
+   F('return_reason','Bounce reason','enum',{o:['Funds insufficient','Exceeds arrangement','Account closed','Payment stopped by drawer','Signature mismatch','Refer to drawer']})]},
+  ...niBlocks('s138'),...comms,niCalc,...tail],
+ s25:[...common('s25'),
+  {g:'Mandate',f:[F('umrn','UMRN','text',{d:'Unique mandate reference number'}),
+   F('mandate_type','Mandate type','enum',{o:['NACH','e-NACH','ECS','Direct debit']}),
+   F('mandate_reg_date','Mandate registration date','date'),F('mandate_max','Mandate maximum amount','amount'),
+   F('sponsor_bank','Sponsor bank','text'),F('dest_bank','Destination bank','text'),
+   F('mandate_status','Mandate status','enum',{o:['Active','Cancelled by borrower','Suspended','Expired']})]},
+  {g:'Debit and dishonour',f:[F('emi_no','EMI instalment number','number'),F('emi_due_date','EMI due date','date'),
+   F('presentation_date','Debit presentation date','date',{m:1}),F('presentation_count','Number of presentations','number',{c:1}),
+   F('debit_amount','Debit amount','amount'),F('txn_ref','Transaction reference','text'),
+   F('return_date','Dishonour date','date'),F('return_code','NPCI return code','text'),
+   F('return_reason','Return reason','enum',{o:['Insufficient balance','Account closed','Mandate cancelled','Payment stopped','Account frozen']}),
+   F('memo_received','Return information received date','date',{d:'Starts the 30-day notice window'}),
+   F('failure_ref','Electronic failure message ref','text'),F('bounce_charges','Bounce charges','amount')]},
+  ...niBlocks('s25'),...comms,niCalc,...tail],
+ sarf:[...common('sarf'),
+  {g:'NPA and security',f:[F('npa_date','NPA classification date','date'),
+   F('asset_class','Asset classification','enum',{o:['Sub-standard','Doubtful','Loss']}),
+   F('cersai_id','CERSAI registration ID','text')]},
+  {g:'Secured asset',f:[F('asset_id','Asset ID','text'),
+   F('asset_type','Asset type','enum',{o:['Residential','Commercial','Industrial','Land / plot']}),
+   F('property_address','Property address','text'),F('property_city','Property city','text'),
+   F('property_state','Property state','enum',{o:STATES}),F('area_sqft','Area (sq ft)','number'),
+   F('mortgage_type','Mortgage type','enum',{o:['Equitable','Registered']}),
+   F('occupancy','Occupancy','enum',{o:['Borrower-occupied','Tenanted','Vacant','Locked']})]},
+  {g:'Valuation',f:[F('valuation_date','Valuation date','date',{m:1}),F('market_value','Market value','amount'),
+   F('realisable_value','Realisable value','amount'),F('distress_value','Distress value','amount')]},
+  {g:'Demand notice 13(2)',f:[F('auth_officer','Authorised officer','text'),
+   F('n132_date','13(2) notice date','date'),F('n132_amount','13(2) demand amount','amount'),
+   F('n132_mode','Dispatch mode','enum',{m:1,o:MODES}),F('n132_delivery','Delivery status','enum',{m:1,o:DELIV}),
+   F('n132_served','13(2) served date','date'),F('n132_publication','Newspaper publication date','date'),
+   F('n132_expiry','60-day period ends','date',{c:1,d:'Served date + 60 days'}),
+   F('objection_date','13(3A) objection received','date'),F('objection_reply','13(3A) reply sent','date')]},
+  {g:'Possession',f:[F('symbolic_date','Symbolic possession date','date'),
+   F('s14_filed','Section 14 application filed','date'),F('s14_authority','Section 14 authority','enum',{o:['CMM','DM']}),
+   F('s14_order','Section 14 order date','date'),F('physical_date','Physical possession date','date'),
+   F('police_help','Police assistance taken','bool')]},
+  {g:'Auction and sale',f:[F('sale_notice_date','Sale notice date','date',{m:1,d:'At least 30 days before auction'}),
+   F('reserve_price','Reserve price','amount',{m:1}),F('emd_amount','EMD amount','amount'),
+   F('auction_platform','Auction platform','text'),F('auction_date','Auction date','date',{m:1}),
+   F('auction_attempts','Number of auction attempts','number',{c:1}),
+   F('auction_status','Auction status','enum',{m:1,o:['Scheduled','Successful','Failed: no bids','Stayed','Cancelled']}),
+   F('highest_bid','Highest bid','amount'),F('sale_confirm','Sale confirmation date','date'),
+   F('sale_cert','Sale certificate date','date'),F('sale_proceeds','Sale proceeds','amount'),
+   F('shortfall','Shortfall after sale','amount',{c:1,d:'Total outstanding minus sale proceeds'})]},
+  {g:'Borrower challenge (DRT)',f:[F('sa_filed','Section 17 SA filed','bool'),F('drt_name','DRT','text'),
+   F('sa_number','SA number','text'),F('sa_date','SA filing date','date'),F('stay_granted','Stay granted','bool'),
+   F('sa_outcome','SA outcome','enum',{o:['Pending','Dismissed','Allowed','Withdrawn']})]},
+  ...comms,
+  {g:'Calculated timelines',f:[F('d_npa_132','Days: NPA to 13(2)','number',{c:1}),
+   F('d_132_possession','Days: 13(2) to symbolic possession','number',{c:1}),
+   F('d_possession_auction','Days: possession to first auction','number',{c:1}),
+   F('sale_notice_breach','Sale notice under 30 days','bool',{c:1}),
+   F('days_in_stage','Days in current stage','number',{c:1}),F('case_age','Case age (days)','number',{c:1}),
+   F('ageing','Ageing bucket','enum',{c:1,o:['0–90 days','91–180 days','181–365 days','1–2 years','Over 2 years']})]},
+  ...tail],
+};
+const FMAP={};for(const w in CAT){FMAP[w]={};CAT[w].forEach(g=>g.f.forEach(f=>FMAP[w][f.k]={...f,group:g.g}))}
+const fld=(w,k)=>FMAP[w]&&FMAP[w][k];
+const TL={text:'Text',date:'Date',amount:'Amount',number:'Number',enum:'Pick list',bool:'Yes / No'};
+const MV={latest:'Latest',first:'First',all:'All, joined',count:'Count'};
+const dateFields=w=>Object.values(FMAP[w]).filter(f=>f.t==='date');
+
+const OPS={text:[['is','is'],['isnot','is not'],['contains','contains'],['empty','is empty'],['notempty','is not empty']],
+ enum:[['in','is any of'],['notin','is none of'],['empty','is empty'],['notempty','is not empty']],
+ number:[['gt','more than'],['gte','at least'],['lt','less than'],['lte','at most'],['eq','equals']],
+ amount:[['gt','more than'],['gte','at least'],['lt','less than'],['lte','at most'],['eq','equals']],
+ date:[['empty','is empty'],['notempty','is not empty'],['before','before'],['after','after'],['lastn','in the last N days'],['nextn','in the next N days']],
+ bool:[['yes','is Yes'],['no','is No']]};
+const NOVAL=['empty','notempty','yes','no'];
+
+/* ===================== STATE ===================== */
+const KEY='litelo_reports_v2';
+const uid=()=>'r'+Math.random().toString(36).slice(2,9);
+const mkcol=(w,k,x={})=>({k,label:fld(w,k).l,mv:'latest',...x});
+function seed(){return[
+ {id:uid(),name:'Notice dispatch tracker',desc:'Every notice sent, with delivery status and limitation checks.',ent:'ABC Bank',wf:'s138',dateBasis:'notice_date',status:'Active',
+  columns:['case_id','batch_id','lan','borrower_name','cheque_no','cheque_amount','return_date','memo_received','notice_date','notice_mode','notice_delivery','notice_served_date','payment_due_date','d_dishonour_notice','notice_breach','state'].map(k=>mkcol('s138',k)),
+  filters:[],updated:Date.now()-2592e5,by:'aleem.rayeen@presolv360.com'},
+ {id:uid(),name:'Court pipeline',desc:'Case-level court data for the legal desk.',ent:'ABC Bank',wf:'s138',dateBasis:'filing_date',status:'Active',
+  columns:['case_id','batch_id','borrower_name','total_outstanding','filing_date','court_name','complaint_no','stage','advocate','next_hearing','ageing','limitation_health'].map(k=>mkcol('s138',k)),
+  filters:[{k:'case_status',op:'in',v:['Open']}],
+  
+  updated:Date.now()-864e5,by:'shabbir.hardwarewala@presolv360.com'},
+ {id:uid(),name:'NACH dishonour and replies',desc:'Mandate failures with borrower responses from the reply link.',ent:'ABC Bank',wf:'s25',dateBasis:'return_date',status:'Draft',
+  columns:['case_id','batch_id','borrower_name','umrn','mandate_type','return_date','return_code','return_reason','notice_date','reply_category','reply_count','reply_channel','stage'].map(k=>mkcol('s25',k)),
+  filters:[],
+  updated:Date.now()-6048e5,by:'krishan.singh@presolv360.com'},
+ {id:uid(),name:'Auction pipeline',desc:'Assets with sale notices issued, reserve price and outcome.',ent:'ABC Bank',wf:'sarf',dateBasis:'auction_date',status:'Active',
+  columns:['case_id','batch_id','borrower_name','asset_type','property_city','total_outstanding','realisable_value','reserve_price','sale_notice_date','auction_date','auction_attempts','auction_status','highest_bid'].map(k=>mkcol('sarf',k)),
+  filters:[{k:'physical_date',op:'notempty',v:''}],
+  
+  updated:Date.now()-5184e5,by:'aleem.rayeen@presolv360.com'},
+ {id:uid(),name:'Weekly recovery snapshot',desc:'Settlement and payment movement for the week.',ent:'HDFC Bank',wf:'s138',dateBasis:'payment_date',status:'Active',
+  columns:['case_id','batch_id','borrower_name','total_outstanding','settlement_status','settlement_amount','payment_date','amount_recovered','stage'].map(k=>mkcol('s138',k)),
+  filters:[],updated:Date.now()-1728e5,by:'aleem.rayeen@presolv360.com'},
+]}
+function load(){try{const r=localStorage.getItem(KEY);if(r){const t=JSON.parse(r);if(Array.isArray(t)&&t.length)return t}}catch(e){}return seed()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S.tpl))}catch(e){}}
+
+const HKEY='litelo_reports_history_v2';
+function seedH(){const d=Date.now();return[
+ {id:uid(),name:'Court pipeline',ent:'ABC Bank',wf:'s138',from:'2026-08-01',to:'2026-08-31',
+  fmt:'xlsx',rows:184,at:d-3456e5,by:'aleem.rayeen@presolv360.com',file:'Court_pipeline_ABCBank_20260901.xlsx'},
+ {id:uid(),name:'Notice dispatch tracker',ent:'ABC Bank',wf:'s138',from:'2026-09-01',to:'2026-09-15',
+  fmt:'xlsx',rows:212,at:d-1728e5,by:'aleem.rayeen@presolv360.com',file:'Notice_dispatch_tracker_ABCBank_20260915.xlsx'},
+ {id:uid(),name:'Auction pipeline',ent:'ABC Bank',wf:'sarf',from:'2026-07-01',to:'2026-09-19',
+  fmt:'csv',rows:46,at:d-864e5,by:'shabbir.hardwarewala@presolv360.com',file:'Auction_pipeline_ABCBank_20260919.csv'},
+ {id:uid(),name:'Weekly recovery snapshot',ent:'HDFC Bank',wf:'s138',from:'2026-09-14',to:'2026-09-20',
+  fmt:'xlsx',rows:88,at:d-2592e5,by:'krishan.singh@presolv360.com',file:'Weekly_recovery_snapshot_HDFCBank_20260920.xlsx'},
+]}
+function loadH(){try{const r=localStorage.getItem(HKEY);if(r){const h=JSON.parse(r);if(Array.isArray(h))return h}}catch(e){}return seedH()}
+function saveH(){try{localStorage.setItem(HKEY,JSON.stringify(S.hist))}catch(e){}}
+
+const S={tab:'templates',tpl:load(),hist:loadH(),draft:null,errs:[],
+ ent:'ABC Bank',wf:'s138',q:'',pickQ:'',pickGrp:'',hq:'',
+ sched:[],em:null,ask:null,
+ run:{id:null,preset:'this_month',from:'',to:'',res:null}};
+const FREQ={daily:'every day',weekly:'every week',monthly:'every month'};
+const ME=()=>'aleem.rayeen@presolv360.com';
+
+/* ===================== UTILS ===================== */
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const $=s=>document.querySelector(s);
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove('show'),2800)}
+const fmtD=d=>d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+const isoD=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
+const inr=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+const inrS=n=>n>=1e7?'₹'+(n/1e7).toFixed(1)+' Cr':n>=1e5?'₹'+(n/1e5).toFixed(1)+' L':inr(n);
+function hash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return h>>>0}
+function rng(s){return()=>{s|=0;s=s+0x6D2B79F5|0;let t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+const pick=(r,a)=>a[Math.floor(r()*a.length)];
+const rel=ts=>{const d=Math.round((Date.now()-ts)/864e5);return d<=0?'Today':d===1?'Yesterday':d+' days ago'};
+function fopts(w,list,sel,ph){const g={};list.forEach(f=>(g[f.group]=g[f.group]||[]).push(f));
+ let h=ph?`<option value="">${esc(ph)}</option>`:'';
+ for(const k in g)h+=`<optgroup label="${esc(k)}">`+g[k].map(f=>`<option value="${f.k}"${f.k===sel?' selected':''}>${esc(f.l)}${f.m?' (repeats)':''}</option>`).join('')+'</optgroup>';
+ return h}
+
+/* ===================== SAMPLE DATA ===================== */
+const P={names:['Rajesh Sharma','Priya Mehta','Anil Verma','Sunita Kapoor','Mohammed Farouk','Deepak Nair','Kavita Rao','Suresh Patil','Lakshmi Iyer','Harpreet Singh','Nazia Khan','Vikram Joshi'],
+ adv:['Adv. R. Kulkarni','Adv. S. Menon','Adv. P. Bansal','Adv. M. Qureshi','Adv. T. Reddy'],
+ firm:['Kulkarni & Associates','Menon Legal','Bansal Law Chambers','Reddy & Co.'],
+ bank:['State Bank of India','HDFC Bank','ICICI Bank','Axis Bank','Bank of Baroda','Kotak Mahindra Bank'],
+ city:['Mumbai','Pune','Bengaluru','New Delhi','Chennai','Ahmedabad','Jaipur','Lucknow','Kolkata','Nagpur'],
+ court:['JMFC Court, Pune','Metropolitan Magistrate, Mumbai','Saket District Court','CMM Court, Chennai','ACJM Court, Jaipur'],
+ drt:['DRT Mumbai I','DRT Pune','DRT Delhi II'],act:['Notice dispatched','Complaint drafted','Hearing attended','Summons follow-up','Valuation ordered','Settlement call'],
+ rem:['Borrower requested time','Address changed','Partial payment promised','Follow up with advocate'],
+ sub:['Notice generation','Notice sent','Notice served','Summons issued','Evidence filed','Arguments']};
+function one(w,f,r,rg){const k=f.k;
+ if(f.t==='date'){const e=rg?rg[1].getTime():Date.now();const s=rg?rg[0].getTime():e-400*864e5;return fmtD(new Date(s+r()*Math.max(e-s,864e5)))}
+ if(f.t==='bool')return r()<.3?'Yes':'No';
+ if(f.t==='enum')return pick(r,f.o);
+ if(f.t==='amount'){const big=w==='sarf'&&!['emi_amount','court_fee','notice_cost','advocate_fee','total_cost','emd_amount'].includes(k);
+  const sml=['court_fee','notice_cost','advocate_fee','total_cost','bounce_charges'].includes(k);
+  return inr(Math.round((sml?300+r()*25000:big?8e5+r()*12e6:8000+r()*45e4)/100)*100)}
+ if(f.t==='number'){if(k==='dpd')return String(30+Math.floor(r()*400));
+  if(k.startsWith('d_')||k==='case_age'||k==='days_in_stage')return String(3+Math.floor(r()*140));
+  if(k==='area_sqft')return String(450+Math.floor(r()*2600));return String(1+Math.floor(r()*8))}
+ const n=Math.floor(r()*9e5)+1e5;
+ if(k==='case_id')return({s138:'S138',s25:'S25',sarf:'SRF'})[w]+'-26-'+String(n).slice(0,5);
+ if(k==='batch_id')return'BATCH-'+(1000+Math.floor(r()*60));
+ if(k==='lan')return'LAN'+n+String(Math.floor(r()*90)+10);
+ if(['borrower_name','co_borrower','borrower_father','auth_rep'].includes(k))return pick(r,P.names);
+ if(k==='borrower_mobile'||k==='borrower_whatsapp')return'98'+n+String(Math.floor(r()*90)+10);
+ if(k==='borrower_email')return pick(r,P.names).split(' ')[0].toLowerCase()+n%999+'@mail.com';
+ if(['advocate','auth_officer'].includes(k))return pick(r,P.adv);
+ if(k==='law_firm')return pick(r,P.firm);
+ if(k.includes('bank'))return pick(r,P.bank);
+ if(k.includes('city')||k==='branch'||k.includes('branch')||k==='jurisdiction')return pick(r,P.city);
+ if(k==='court_name')return pick(r,P.court);
+ if(k==='drt_name')return pick(r,P.drt);
+ if(k==='last_action'||k==='next_action')return pick(r,P.act);
+ if(k==='remarks')return pick(r,P.rem);
+ if(k.includes('sub_stage'))return pick(r,P.sub);
+ if(k==='pincode')return String(4e5+Math.floor(r()*99999));
+ if(k==='return_code')return pick(r,['01','04','09','22','26']);
+ if(k==='reply_text')return pick(r,['Will pay by month end','Already paid on 12th, sharing receipt','Need 30 more days','Please call me']);
+ if(k==='reply_doc')return r()<.5?'receipt_'+n+'.pdf':'—';
+ if(k==='property_address')return(Math.floor(r()*200)+1)+', '+pick(r,['Shanti Nagar','MG Road','Sector 21','Laxmi Colony'])+', '+pick(r,P.city);
+ if(k==='claimant_name')return'ABC Bank Ltd.';
+ return k.toUpperCase().slice(0,3)+'/'+n}
+function cell(w,c,i,rg,basis){const f=fld(w,c.k);if(!f)return'';
+ const r=rng(hash(w+c.k)+i*977);const g=c.k===basis?rg:null;
+ if(f.m){if(c.mv==='count')return String(1+Math.floor(r()*4));
+  if(c.mv==='all'){const n=2+Math.floor(r()*2);const v=[];for(let j=0;j<n;j++)v.push(one(w,f,r,g));return[...new Set(v)].join('; ')}}
+ return one(w,f,r,g)}
+const num=s=>{const n=parseFloat(String(s).replace(/[₹,]/g,''));return isNaN(n)?null:n};
+
+function rows(t,n,rg){
+ const cols=t.columns.filter(c=>fld(t.wf,c.k));
+ const off=rg?hash(isoD(rg[0]))%50:0;
+ const data=[];for(let i=0;i<n;i++)data.push(cols.map(c=>cell(t.wf,c,i+off,rg,t.dateBasis)));
+ const head=cols.map(c=>({l:c.label||fld(t.wf,c.k).l,n:['amount','number'].includes(fld(t.wf,c.k).t)&&!(fld(t.wf,c.k).m&&c.mv==='all')}));
+ let tot=null;
+ if(cols.length)tot=head.map((h,j)=>{const f=fld(t.wf,cols[j].k);
+  if(j===0)return'Total ('+n+' cases)';
+  if(f.t==='amount'&&h.n)return inr(data.reduce((a,r)=>a+(num(r[j])||0),0));return''});
+ return{head,rows:data,tot}}
+function tblHTML(d,em){if(!d.head.length)return`<p class="sm mut" style="padding:10px 0">${esc(em)}</p>`;
+ return`<div class="tw"><table><thead><tr>${d.head.map(h=>`<th class="${h.n?'n':''}">${esc(h.l)}</th>`).join('')}</tr></thead><tbody>`+
+ d.rows.map(r=>`<tr>${r.map((v,j)=>`<td class="${d.head[j]&&d.head[j].n?'n':''}">${esc(v)}</td>`).join('')}</tr>`).join('')+
+ (d.tot?`<tr class="tot">${d.tot.map((v,j)=>`<td class="${d.head[j].n?'n':''}">${esc(v)}</td>`).join('')}</tr>`:'')+`</tbody></table></div>`}
+
+/* ===================== SENTENCE ===================== */
+function fText(w,x){const f=fld(w,x.k);if(!f)return null;
+ const op=(OPS[f.t].find(o=>o[0]===x.op)||OPS[f.t][0]);
+ if(NOVAL.includes(op[0]))return f.l.toLowerCase()+' '+op[1];
+ let v=x.v;if(Array.isArray(v)){if(!v.length)return null;v=v.join(' or ')}
+ if(v===''||v==null)return null;
+ if(op[0]==='lastn'||op[0]==='nextn')return f.l.toLowerCase()+' is in the '+(op[0]==='lastn'?'last':'next')+' '+v+' days';
+ if(f.t==='date')v=fmtD(new Date(v));if(f.t==='amount')v=inr(v);
+ return f.l.toLowerCase()+' '+op[1]+' '+v}
+function sentence(t,rt){const V=(s,m)=>`<span class="v${m?' miss':''}">${esc(s)}</span>`;
+ const b=fld(t.wf,t.dateBasis);
+ let h=`One row per case from ${V(WF[t.wf])} for ${V(t.ent)}, where ${b?V(b.l):V('a date field',1)} falls ${rt?'between '+V(rt):'in the range the user picks'}`;
+ const fl=t.filters.map(x=>fText(t.wf,x)).filter(Boolean);
+ if(fl.length)h+=`, and ${fl.map(x=>V(x)).join(' and ')}`;
+ h+='. ';
+ const n=t.columns.length;
+ h+=n?`It shows ${V(n+(n===1?' column':' columns'))}, newest first. `:`It has ${V('no columns yet',1)}. `;
+ return h}
+
+/* ===================== VIEWS ===================== */
+function filterBar(){
+ return`<div class="fbar">
+  <label class="fg"><span>Enterprise</span><select data-b="ent">${ENTS.map(e=>`<option${e===S.ent?' selected':''}>${esc(e)}</option>`).join('')}</select></label>
+  <div class="fg"><span>Workflow</span><div class="seg" role="group">${Object.entries(WF).map(([k,l])=>`<button data-a="wf" data-wf="${k}" aria-pressed="${S.wf===k}">${l}</button>`).join('')}</div></div>
+  <label class="fg" style="flex:1;min-width:190px"><span>Search</span><input type="search" id="q" placeholder="Search reports" value="${esc(S.q)}"></label>
+ </div>`}
+
+function listView(){
+ const list=S.tpl.filter(t=>t.ent===S.ent&&t.wf===S.wf&&(!S.q||(t.name+' '+t.desc).toLowerCase().includes(S.q.toLowerCase())));
+ const body=list.map(t=>{const db=fld(t.wf,t.dateBasis);
+  return`<tr><td><strong style="font-weight:500">${esc(t.name)}</strong>${t.desc?`<div class="xs" style="margin-top:2px">${esc(t.desc)}</div>`:''}</td>
+  <td class="sm">${esc(db?db.l:'—')}</td>
+  <td class="n sm">${t.columns.length}</td>
+  <td><span class="pill ${t.status==='Active'?'p-a':'p-d'}">${t.status}</span></td>
+  <td class="sm">${rel(t.updated)}<div class="xs">${esc(t.by)}</div></td>
+  <td style="white-space:nowrap"><button class="btn sm" data-a="edit" data-id="${t.id}">Edit</button>
+  <button class="btn gh sm" data-a="dup" data-id="${t.id}">Duplicate</button>
+  <button class="btn gh sm dngr" data-a="del" data-id="${t.id}">Delete</button></td></tr>`}).join('');
+ return`<div class="ph"><div><h1>Report templates</h1><p class="mut sm">Build the reports your enterprise can run. They pick a report and a date range, nothing else.</p></div>
+ <div style="display:flex;gap:8px"><button class="btn gh sm" data-a="reset">Reset samples</button><button class="btn primary" data-a="new">New report</button></div></div>
+ ${filterBar()}
+ ${list.length?`<div class="tw"><table><thead><tr><th>Report</th><th>Date range applies to</th><th class="n">Columns</th><th>Status</th><th>Updated</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`
+ :`<div class="panel empty"><h3>No reports for ${esc(S.ent)} on ${esc(WF[S.wf])}</h3><p>Create a template and it appears in the enterprise's report list straight away.</p><button class="btn primary" data-a="new">New report</button></div>`}`}
+
+function builderView(){
+ const t=S.draft,w=t.wf,isNew=!S.tpl.some(x=>x.id===t.id);
+ const sel=new Set(t.columns.map(c=>c.k));
+ const all=Object.values(FMAP[w]);
+ const q=S.pickQ.trim().toLowerCase();
+ const avail=all.filter(f=>(!S.pickGrp||f.group===S.pickGrp)&&(!q||(f.l+' '+f.group).toLowerCase().includes(q)));
+ const groups=[...new Set(all.map(f=>f.group))];
+ const availRows=avail.map(f=>`<tr data-a="pick" data-k="${f.k}"><td style="width:26px"><input type="checkbox" class="cb" ${sel.has(f.k)?'checked':''} tabindex="-1" aria-label="${esc(f.l)}"></td>
+  <td>${esc(f.l)} ${f.c?'<span class="tg calc">calc</span>':''}${f.m?'<span class="tg">repeats</span>':''}</td>
+  <td class="xs">${esc(f.group)}</td><td class="xs">${TL[f.t]}</td></tr>`).join('');
+ const selRows=t.columns.map((c,i)=>{const f=fld(w,c.k);if(!f)return'';
+  return`<div class="selrow"><span class="ix">${i+1}</span><div>
+   <input type="text" value="${esc(c.label)}" data-col="${i}" data-b="colLabel" aria-label="Header for ${esc(f.l)}">
+   <div class="src"><span>${esc(f.group)} · ${esc(f.l)}</span>${f.m?`<select data-col="${i}" data-b="colMv" aria-label="Repeating values">${Object.entries(MV).map(([k,l])=>`<option value="${k}"${c.mv===k?' selected':''}>${l}</option>`).join('')}</select>`:''}</div></div>
+   <div class="acts"><button class="ib" data-a="cu" data-i="${i}"${i?'':' disabled'} aria-label="Move up">↑</button>
+   <button class="ib" data-a="cd" data-i="${i}"${i===t.columns.length-1?' disabled':''} aria-label="Move down">↓</button>
+   <button class="ib" data-a="cx" data-i="${i}" aria-label="Remove">✕</button></div></div>`}).join('');
+
+ const filters=t.filters.map((x,i)=>{const f=fld(w,x.k),ops=f?OPS[f.t]:[];
+  let val='<span></span>';
+  if(f&&!NOVAL.includes(x.op)){
+   if(f.t==='enum')val=`<select data-fi="${i}" data-b="fVal" multiple size="1" style="min-height:34px">${f.o.map(o=>`<option${(Array.isArray(x.v)?x.v:[x.v]).includes(o)?' selected':''}>${esc(o)}</option>`).join('')}</select>`;
+   else if(f.t==='date'&&(x.op==='lastn'||x.op==='nextn'))val=`<input type="number" min="1" placeholder="Days" value="${esc(x.v)}" data-fi="${i}" data-b="fVal">`;
+   else if(f.t==='date')val=`<input type="date" value="${esc(x.v)}" data-fi="${i}" data-b="fVal">`;
+   else if(f.t==='amount'||f.t==='number')val=`<input type="number" placeholder="Value" value="${esc(x.v)}" data-fi="${i}" data-b="fVal">`;
+   else val=`<input type="text" placeholder="Value" value="${esc(x.v)}" data-fi="${i}" data-b="fVal">`}
+  return`<div class="frow"><select data-fi="${i}" data-b="fKey" aria-label="Field">${fopts(w,all,x.k,'Choose field')}</select>
+   <select data-fi="${i}" data-b="fOp" aria-label="Condition"${f?'':' disabled'}>${ops.map(o=>`<option value="${o[0]}"${x.op===o[0]?' selected':''}>${o[1]}</option>`).join('')}</select>
+   ${val}<button class="ib" data-a="fx" data-i="${i}" aria-label="Remove filter">✕</button></div>`}).join('');
+ const fChips=t.filters.map(x=>fText(w,x)).filter(Boolean);
+
+
+ const errs=S.errs.length?`<div class="errs" role="alert"><strong>Fix these before saving</strong><ul>${S.errs.map(e=>`<li>${esc(e)}</li>`).join('')}</ul></div>`:'';
+
+ return`<button class="btn gh sm" data-a="cancel" style="margin-bottom:10px">← All report templates</button>
+ <div class="ph"><div><h1>${isNew?'New report':'Edit report'}</h1><p class="mut sm">${esc(t.ent)} · ${esc(WF[w])}. Changes apply the next time this report is run.</p></div></div>
+ <div class="bl"><div class="panel">
+
+  <section class="sec"><div class="sh"><span class="step">1</span><div><h3>Report details</h3><p class="xs">The enterprise sees the name and description when choosing a report.</p></div></div>
+   <label class="fld"><span>Report name</span><input type="text" data-b="name" value="${esc(t.name)}" placeholder="Notice dispatch tracker"></label>
+   <label class="fld"><span>Description</span><textarea data-b="desc" placeholder="What this report is for and who reads it">${esc(t.desc)}</textarea></label>
+   <div class="row"><label class="fld"><span>Enterprise</span><select data-b="dEnt">${ENTS.map(e=>`<option${e===t.ent?' selected':''}>${esc(e)}</option>`).join('')}</select></label>
+   <label class="fld"><span>Status</span><select data-b="status"><option${t.status==='Active'?' selected':''}>Active</option><option${t.status==='Draft'?' selected':''}>Draft</option></select>
+   <p class="hint">Draft reports stay hidden from the enterprise.</p></label></div>
+   <div class="fld" style="margin-bottom:0"><span>Workflow</span><div class="seg" role="group">${Object.entries(WF).map(([k,l])=>`<button data-a="dwf" data-wf="${k}" aria-pressed="${w===k}">${l}</button>`).join('')}</div>
+   <p class="hint">One report reads one workflow. Switching clears the columns and filters below.</p></div></section>
+
+  <section class="sec"><div class="sh"><span class="step">2</span><div><h3>Date range applies to</h3><p class="xs">When the enterprise picks dates, this is the field those dates are matched against.</p></div></div>
+   <select data-b="dateBasis" aria-label="Date field">${fopts(w,dateFields(w),t.dateBasis,'Choose a date field')}</select>
+   <p class="hint">${fld(w,t.dateBasis)&&fld(w,t.dateBasis).m?'This date repeats on a case, so a case is included if any occurrence falls in the range.':'Cases where this date is empty are left out. Batches are not selected separately — every batch in range is included, with Batch ID as a column.'}</p></section>
+
+  <section class="sec"><div class="sh"><span class="step">3</span><div><h3>Columns</h3><p class="xs">Tick fields on the left. Rename headers and set the export order on the right.</p></div></div>
+   <div class="pick">
+    <div class="pane"><div class="pane-h"><strong>Available fields</strong><span class="xs">${avail.length} of ${all.length}</span></div>
+     <div class="pane-tools"><input type="search" id="pickQ" placeholder="Search fields" value="${esc(S.pickQ)}" aria-label="Search fields">
+      <select data-b="pickGrp" aria-label="Filter by group"><option value="">All groups</option>${groups.map(g=>`<option${S.pickGrp===g?' selected':''}>${esc(g)}</option>`).join('')}</select></div>
+     <div class="pane-b"><table><thead><tr><th></th><th>Field</th><th>Group</th><th>Type</th></tr></thead><tbody>${availRows||'<tr><td colspan="4" class="xs" style="padding:14px">No fields match.</td></tr>'}</tbody></table></div></div>
+    <div class="pane"><div class="pane-h"><strong>Report columns, in order</strong>${t.columns.length?`<button class="btn gh sm" data-a="cclear">Clear all</button>`:''}</div>
+     <div class="pane-b">${selRows||'<p class="xs" style="padding:14px">No columns yet. Tick fields on the left.</p>'}</div></div></div>
+   <p class="hint">Fields marked <span class="tg">repeats</span> can hold several values per case, such as replies or hearings. Choose whether the column shows the latest, first, all values joined, or a count.</p></section>
+
+  <section class="sec"><div class="sh"><span class="step">4</span><div><h3>Fixed filters</h3><p class="xs">Always applied. The enterprise cannot change these, so use them to keep a report focused.</p></div></div>
+   ${fChips.length?`<div class="chips">${fChips.map(c=>`<span class="chip">${esc(c)}</span>`).join('')}</div>`:''}
+   ${filters||'<p class="xs" style="margin-bottom:10px">No filters. Every case in the date range is included.</p>'}
+   <button class="btn sm" data-a="fadd">Add filter</button>
+   <p class="hint">Rows are always sorted newest first on the date field above.</p></section>
+ </div>
+
+ <aside class="side">
+  <div class="panel pad"><h3 style="margin-bottom:9px">What this report does</h3><p class="sent">${sentence(t)}</p></div>
+  <div class="panel pad pv"><h3 style="margin-bottom:9px">Preview <span class="xs">sample data</span></h3>${tblHTML(rows(t,5),'Add columns to see a preview.')}</div>
+  ${errs}
+  <div class="acts"><button class="btn" data-a="cancel">Cancel</button><button class="btn primary" data-a="save">${isNew?'Save report':'Save changes'}</button></div>
+ </aside></div>`}
+
+const PRE=[['last7','Last 7 days'],['this_month','This month'],['last_month','Last month'],['this_q','This quarter'],['fy','This financial year'],['custom','Custom']];
+function preRange(p){const n=new Date(),y=n.getFullYear(),m=n.getMonth();const d=x=>new Date(x.getFullYear(),x.getMonth(),x.getDate());
+ if(p==='last7')return[d(new Date(n-6*864e5)),d(n)];
+ if(p==='this_month')return[new Date(y,m,1),d(n)];
+ if(p==='last_month')return[new Date(y,m-1,1),new Date(y,m,0)];
+ if(p==='this_q')return[new Date(y,Math.floor(m/3)*3,1),d(n)];
+ if(p==='fy')return[new Date(m>=3?y:y-1,3,1),d(n)];
+ return null}
+function runView(){
+ const R=S.run;
+ const avail=S.tpl.filter(t=>t.ent===S.ent&&t.status==='Active');
+ if(!R.id||!avail.some(t=>t.id===R.id))R.id=avail[0]?avail[0].id:null;
+ if(R.preset!=='custom'){const p=preRange(R.preset);R.from=isoD(p[0]);R.to=isoD(p[1])}
+ const by={};avail.forEach(t=>(by[t.wf]=by[t.wf]||[]).push(t));
+ const opts=Object.keys(by).map(w=>`<p class="xs" style="margin:13px 0 6px">${esc(WF[w])}</p>`+
+  by[w].map(t=>`<label class="ropt"><input type="radio" name="rep" value="${t.id}" data-b="runId"${R.id===t.id?' checked':''}>
+   <strong>${esc(t.name)}</strong><span class="xs">${esc(t.desc||'')}</span>
+   <span class="xs" style="display:block;margin-top:3px">${t.columns.length} columns</span></label>`).join('')).join('');
+ let res=`<div class="panel empty"><h3>Pick a report and a date range</h3><p>Choose on the left, then generate. The report opens here and you can download it as Excel or CSV.</p></div>`;
+ if(R.res){const t=S.tpl.find(x=>x.id===R.res.id);
+  if(t){const rg=[new Date(R.res.from),new Date(R.res.to)];const n=11+(hash(R.res.from+t.id)%13);
+   const sc=S.sched.find(x=>x.tplId===t.id);
+   res=`<div class="panel pad">
+    <div class="rh"><div><h3 style="font-size:16px">${esc(t.name)}</h3><p class="xs">${esc(t.ent)} · ${esc(WF[t.wf])} · ${fmtD(rg[0])} to ${fmtD(rg[1])} · generated ${new Date(R.res.at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-a="dl" data-f="csv">Download CSV</button><button class="btn" data-a="dl" data-f="xlsx">Download Excel</button><button class="btn primary" data-a="email">✉ Email</button></div></div>
+    ${sc?`<div class="sched"><span>Emailing <b>${esc(FREQ[sc.freq])}</b> at <b>${esc(sc.time)}</b> until <b>${fmtD(new Date(sc.until))}</b> to <b>${esc(sc.to.join(', '))}</b></span><span style="display:flex;gap:6px"><button class="btn sm" data-a="email">Edit</button><button class="btn gh sm dngr" data-a="unsched" data-id="${sc.id}">Cancel</button></span></div>`:''}
+    <p class="sent sm" style="font-size:13px;margin-bottom:13px">${sentence(t,fmtD(rg[0])+' and '+fmtD(rg[1]))}</p>
+    <div class="pv">${tblHTML(rows(t,n,rg),'This report has no columns yet.')}</div>
+    <p class="xs" style="margin-top:11px">Showing ${n} sample rows. The real file includes every case in range, with Batch ID as a column.</p></div>`}}
+ return`<div class="ph"><div><h1>Report download</h1><p class="mut sm">Pick a report and a date range, then download it or set it to email on a schedule. Only Active reports appear here.</p></div></div>
+ <div class="fbar"><label class="fg"><span>Enterprise</span><select data-b="ent">${ENTS.map(e=>`<option${e===S.ent?' selected':''}>${esc(e)}</option>`).join('')}</select></label>
+ <div class="fg" style="flex:1"><span>&nbsp;</span><p class="xs">${avail.length} active report${avail.length===1?'':'s'} available</p></div></div>
+ <div class="run"><div class="panel pad">
+  <h3>Report</h3>${opts||'<p class="xs" style="margin-top:8px">No active reports for this enterprise yet.</p>'}
+  <h3 style="margin-top:18px">Date range</h3>
+  <div class="presets" role="group">${PRE.map(([k,l])=>`<button data-a="pre" data-p="${k}" aria-pressed="${R.preset===k}">${l}</button>`).join('')}</div>
+  <div class="row"><label class="fld"><span>From</span><input type="date" value="${R.from}" data-b="rFrom"></label>
+  <label class="fld"><span>To</span><input type="date" value="${R.to}" data-b="rTo"></label></div>
+  <button class="btn primary" style="width:100%;justify-content:center" data-a="gen"${R.id?'':' disabled'}>Generate report</button>
+ </div><div>${res}</div></div>`}
+
+/* ===================== HISTORY ===================== */
+function histFor(){return S.hist.filter(h=>h.ent===S.ent
+ &&(!S.hq||(h.name+' '+h.by+' '+h.file).toLowerCase().includes(S.hq.toLowerCase())))
+ .sort((a,b)=>b.at-a.at)}
+function logRun(t,res,fmt,n,via){
+ S.hist.unshift({id:uid(),name:t.name,ent:t.ent,wf:t.wf,from:res.from,to:res.to,fmt,rows:n,via:via||'Download',
+  at:Date.now(),by:ME(),
+  file:t.name.replace(/[^a-z0-9]+/gi,'_')+'_'+t.ent.replace(/\s/g,'')+'_'+res.to.replace(/-/g,'')+'.'+fmt});
+ if(S.hist.length>60)S.hist.length=60;saveH()}
+function histView(){
+ const list=histFor();
+ const body=list.map(h=>`<tr>
+  <td><strong style="font-weight:500">${esc(h.name)}</strong><div class="xs" style="margin-top:2px">${esc(h.file)}</div></td>
+  <td><span class="pill p-n">${esc(WF[h.wf]||h.wf)}</span></td>
+  <td class="sm">${fmtD(new Date(h.from))}<div class="xs">to ${fmtD(new Date(h.to))}</div></td>
+  <td class="n sm">${h.rows}</td>
+  <td><span class="pill ${h.fmt==='xlsx'?'p-i':'p-n'}">${h.fmt==='xlsx'?'Excel':'CSV'}</span>${h.via==='Email'?'<div class="xs" style="margin-top:3px">✉ Emailed</div>':''}</td>
+  <td class="sm">${rel(h.at)}<div class="xs">${new Date(h.at).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}${' · '+esc(h.by)}</div></td>
+  <td style="white-space:nowrap"><button class="btn sm" data-a="hdl" data-id="${h.id}">Download again</button>
+  <button class="btn gh sm" data-a="hrun" data-id="${h.id}">Run with latest data</button></td></tr>`).join('');
+ return`<div class="ph"><div><h1>Download history</h1><p class="mut sm">Every report pulled or emailed for this enterprise, by anyone. Files stay available for 90 days.</p></div>
+  ${list.length?`<button class="btn gh sm" data-a="hclear">Clear history</button>`:''}</div>
+ <div class="fbar">
+  <label class="fg"><span>Enterprise</span><select data-b="ent">${ENTS.map(e=>`<option${e===S.ent?' selected':''}>${esc(e)}</option>`).join('')}</select></label>
+  <label class="fg" style="flex:1;min-width:190px"><span>Search</span><input type="search" id="hq" placeholder="Search by report, file or person" value="${esc(S.hq)}"></label>
+ </div>
+ ${list.length?`<div class="note"><div><b>Download again</b> gives the exact file that was generated then, unchanged. <b>Run with latest data</b> rebuilds the report from today's data, using the same dates.</div></div>
+ <div class="tw"><table><thead><tr><th>Report</th><th>Workflow</th><th>Date range</th><th class="n">Rows</th><th>Format</th><th>Generated</th><th></th></tr></thead><tbody>${body}</tbody></table></div>`
+ :`<div class="panel empty"><h3>Nothing downloaded yet</h3><p>Reports you generate and download appear here, so you can pull the same file again without setting it up twice.</p><button class="btn primary" data-a="goRun">Run a report</button></div>`}`}
+
+/* ===================== RENDER ===================== */
+function render(keep=true){
+ const y=window.scrollY;
+ const n=histFor().length;
+ const tabs=[['templates','Report templates'],['run','Report download'],['history','History'+(n?' · '+n:'')]];
+ $('#tabs').innerHTML=tabs.map(([k,l])=>`<button data-tab="${k}" aria-current="${S.tab===k?'page':'false'}">${l}</button>`).join('');
+ $('#main').innerHTML=S.tab==='templates'?(S.draft?builderView():listView()):S.tab==='history'?histView():runView();
+ keep?window.scrollTo(0,y):window.scrollTo(0,0)}
+function blank(){return{id:uid(),name:'',desc:'',ent:S.ent,wf:S.wf,dateBasis:'',status:'Draft',columns:[],filters:[],updated:Date.now(),by:'aleem.rayeen@presolv360.com'}}
+function validate(t){const e=[];
+ if(!t.name.trim())e.push('Give the report a name.');
+ else if(S.tpl.some(x=>x.id!==t.id&&x.ent===t.ent&&x.name.trim().toLowerCase()===t.name.trim().toLowerCase()))e.push('This enterprise already has a report with that name.');
+ if(!fld(t.wf,t.dateBasis))e.push('Choose the date field the date range applies to.');
+ if(!t.columns.length)e.push('Add at least one column.');
+ t.filters.forEach((f,i)=>{if(!fld(t.wf,f.k))e.push('Filter '+(i+1)+' needs a field.');
+  else if(!NOVAL.includes(f.op)&&(f.v===''||f.v==null||(Array.isArray(f.v)&&!f.v.length)))e.push('Filter '+(i+1)+' ('+fld(t.wf,f.k).l+') needs a value.')});
+ return e}
+/* ===================== CONFIRM DIALOG ===================== */
+function ask(title,body,label,fn,danger){
+ S.ask=fn;
+ $('#modal').innerHTML=`<h2>${esc(title)}</h2><p class="mut sm" style="margin:6px 0 20px">${esc(body)}</p>
+ <div class="macts"><button class="btn" data-a="ckx">Cancel</button><button class="btn ${danger?'red':'primary'}" data-a="ckok">${esc(label)}</button></div>`;
+ $('#ov').classList.add('open');
+ setTimeout(()=>{const b=$('#modal [data-a="ckok"]');if(b)b.focus()},30)}
+function closeAsk(){$('#ov').classList.remove('open');S.ask=null}
+
+/* ===================== EMAIL SCHEDULE ===================== */
+const VALID=e=>/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
+function openEmail(){
+ const t=S.tpl.find(x=>x.id===S.run.res.id);if(!t)return;
+ const ex=S.sched.find(x=>x.tplId===t.id);
+ const d=new Date();d.setMonth(d.getMonth()+3);
+ S.em=ex?{...ex,to:[...ex.to]}:{id:uid(),tplId:t.id,freq:'weekly',time:'09:00',until:isoD(d),to:[],fmt:'xlsx',err:''};
+ drawEmail()}
+function drawEmail(){
+ const e=S.em,t=S.tpl.find(x=>x.id===e.tplId);
+ $('#modal').innerHTML=`<h2>Email this report</h2>
+ <p class="mut sm" style="margin-bottom:16px">${esc(t.name)} · ${esc(t.ent)} · ${esc(WF[t.wf])}</p>
+ <label class="fld"><span>Send to</span>
+  <div class="emchips" id="chipbox">${e.to.map((a,i)=>`<span class="emchip">${esc(a)}<button data-a="emdel" data-i="${i}" aria-label="Remove ${esc(a)}">✕</button></span>`).join('')}
+   <input type="text" id="emin" placeholder="${e.to.length?'Add another':'name@company.com'}" aria-label="Email address"></div>
+  <p class="hint">Press Enter or comma after each address.</p></label>
+ <div class="row">
+  <label class="fld"><span>How often</span><select data-b="emFreq">${Object.entries(FREQ).map(([k,l])=>`<option value="${k}"${e.freq===k?' selected':''}>${l[0].toUpperCase()+l.slice(1)}</option>`).join('')}</select></label>
+  <label class="fld"><span>Time (IST)</span><input type="time" step="1800" value="${e.time}" data-b="emTime"></label></div>
+ <div class="row">
+  <label class="fld"><span>Keep sending until</span><input type="date" value="${e.until}" data-b="emUntil"></label>
+  <label class="fld"><span>File format</span><select data-b="emFmt"><option value="xlsx"${e.fmt==='xlsx'?' selected':''}>Excel (.xlsx)</option><option value="csv"${e.fmt==='csv'?' selected':''}>CSV</option></select></label></div>
+ <div class="note" style="margin-bottom:14px"><div>Each email covers the <b>same date range relative to the send date</b> as the one you just ran, so a weekly email always carries the latest week.</div></div>
+ ${e.err?`<div class="errs" style="margin-bottom:14px">${esc(e.err)}</div>`:''}
+ <div class="macts"><button class="btn" data-a="emx">Cancel</button><button class="btn primary" data-a="emsend">Send</button></div>`;
+ $('#ov').classList.add('open');
+ const i=$('#emin');if(i){i.focus();i.addEventListener('keydown',emKey);i.addEventListener('blur',()=>emAdd(i.value))}}
+function emKey(ev){const i=ev.target;
+ if(ev.key==='Enter'||ev.key===','||ev.key===' '){ev.preventDefault();emAdd(i.value)}
+ else if(ev.key==='Backspace'&&!i.value&&S.em.to.length){S.em.to.pop();drawEmail()}}
+function emAdd(v){v=(v||'').trim().replace(/[,;]$/,'');if(!v)return;
+ if(!VALID(v)){S.em.err=`"${v}" is not a valid email address.`;drawEmail();return}
+ if(!S.em.to.includes(v))S.em.to.push(v);S.em.err='';drawEmail()}
+function closeEm(){$('#ov').classList.remove('open');S.em=null}
+$('#ov').addEventListener('click',e=>{if(e.target.id==='ov'){closeEm();closeAsk()}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeEm();closeAsk()}});
+$('#modal').addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a;
+ if(a==='ckx'){closeAsk();return}
+ if(a==='ckok'){const f=S.ask;closeAsk();if(f)f();return}
+ if(a==='emdel'){S.em.to.splice(+b.dataset.i,1);drawEmail()}
+ else if(a==='emx')closeEm();
+ else if(a==='emsend'){
+  const i=$('#emin');if(i&&i.value.trim())emAdd(i.value);
+  const e2=S.em;if(!e2)return;
+  if(!e2.to.length){e2.err='Add at least one email address.';drawEmail();return}
+  if(new Date(e2.until)<new Date()){e2.err='The end date is in the past.';drawEmail();return}
+  const ix=S.sched.findIndex(x=>x.id===e2.id);
+  const rec={id:e2.id,tplId:e2.tplId,freq:e2.freq,time:e2.time,until:e2.until,to:[...e2.to],fmt:e2.fmt};
+  ix>=0?S.sched[ix]=rec:S.sched.push(rec);
+  const t=S.tpl.find(x=>x.id===rec.tplId);
+  logRun(t,S.run.res,rec.fmt,11+(hash(S.run.res.from+t.id)%13),'Email');
+  closeEm();render();toast('First email sent. Repeats '+FREQ[rec.freq]+' at '+rec.time+' until '+fmtD(new Date(rec.until)));}});
+$('#modal').addEventListener('change',e=>{
+ const b=e.target.dataset.b;if(!b||!S.em)return;
+ if(b==='emFreq')S.em.freq=e.target.value;
+ if(b==='emTime')S.em.time=e.target.value;
+ if(b==='emUntil')S.em.until=e.target.value;
+ if(b==='emFmt')S.em.fmt=e.target.value;
+ S.em.err='';drawEmail()});
+
+/* ===================== EVENTS ===================== */
+$('#tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(!b)return;S.tab=b.dataset.tab;S.draft=null;render(false)});
+$('#theme').onclick=()=>{const d=document.documentElement;
+ const c=d.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+ d.setAttribute('data-theme',c==='dark'?'light':'dark')};
+
+$('#main').addEventListener('click',e=>{
+ const b=e.target.closest('[data-a]');if(!b||b.disabled)return;
+ const a=b.dataset.a,t=S.draft,i=+b.dataset.i;
+ switch(a){
+  case'wf':S.wf=b.dataset.wf;render();break;
+  case'new':S.draft=blank();S.errs=[];S.pickQ='';S.pickGrp='';render(false);break;
+  case'edit':{S.draft=JSON.parse(JSON.stringify(S.tpl.find(x=>x.id===b.dataset.id)));S.errs=[];S.pickQ='';S.pickGrp='';render(false);break}
+  case'dup':{const s=S.tpl.find(x=>x.id===b.dataset.id);const c=JSON.parse(JSON.stringify(s));c.id=uid();c.name=s.name+' (copy)';c.status='Draft';c.updated=Date.now();S.tpl.push(c);save();render();toast('Duplicated as a draft');break}
+  case'del':{const s=S.tpl.find(x=>x.id===b.dataset.id);
+   const hasSched=S.sched.some(x=>x.tplId===s.id);
+   ask('Delete this report?','"'+s.name+'" will be removed from the list.'+(hasSched?' Its scheduled email will also stop.':'')+' Past downloads stay in History.','Delete',()=>{
+     S.tpl=S.tpl.filter(x=>x.id!==s.id);S.sched=S.sched.filter(x=>x.tplId!==s.id);
+     if(S.run.res&&S.run.res.id===s.id)S.run.res=null;
+     save();render();toast('Deleted "'+s.name+'"')},true);break}
+  case'reset':ask('Reset to samples?','Every report you have built will be replaced by the four sample reports.','Reset',()=>{
+     S.tpl=seed();S.sched=[];S.run.res=null;save();render();toast('Samples restored')},true);break;
+  case'cancel':S.draft=null;S.errs=[];render(false);break;
+  case'save':{S.errs=validate(t);if(S.errs.length){render();break}
+   t.updated=Date.now();const ix=S.tpl.findIndex(x=>x.id===t.id);
+   ix>=0?S.tpl[ix]=t:S.tpl.push(t);save();S.ent=t.ent;S.wf=t.wf;S.draft=null;render(false);toast('Saved '+t.name);break}
+  case'dwf':{const w=b.dataset.wf;if(w===t.wf)break;
+   const go=()=>{Object.assign(t,{wf:w,dateBasis:'',columns:[],filters:[]});S.pickGrp='';render()};
+   if(t.columns.length||t.filters.length)ask('Switch workflow?','Moving to '+WF[w]+' clears the columns and filters you have picked, because each workflow has its own fields.','Switch',go,true);
+   else go();
+   break}
+  case'pick':{const k=b.dataset.k;const ix=t.columns.findIndex(c=>c.k===k);
+   ix>=0?t.columns.splice(ix,1):t.columns.push(mkcol(t.wf,k));render();break}
+  case'cu':[t.columns[i-1],t.columns[i]]=[t.columns[i],t.columns[i-1]];render();break;
+  case'cd':[t.columns[i+1],t.columns[i]]=[t.columns[i],t.columns[i+1]];render();break;
+  case'cx':t.columns.splice(i,1);render();break;
+  case'cclear':t.columns=[];render();break;
+  case'fadd':t.filters.push({k:'',op:'',v:''});render();break;
+  case'fx':t.filters.splice(i,1);render();break;
+  case'pre':S.run.preset=b.dataset.p;render();break;
+  case'gen':{const R=S.run;if(!R.from||!R.to){toast('Choose both a start and an end date.');break}
+   if(R.from>R.to){toast('The start date is after the end date.');break}
+   R.res={id:R.id,from:R.from,to:R.to,at:Date.now()};render();break}
+  case'dl':{const t2=S.tpl.find(x=>x.id===S.run.res.id);const f=b.dataset.f;
+   const n=11+(hash(S.run.res.from+t2.id)%13);
+   logRun(t2,S.run.res,f,n);render();
+   toast('Downloaded as '+(f==='xlsx'?'Excel':'CSV')+'. Saved to History.');break}
+  case'email':openEmail();break;
+  case'unsched':S.sched=S.sched.filter(x=>x.id!==b.dataset.id);render();toast('Scheduled email cancelled');break;
+  case'goRun':S.tab='run';render(false);break;
+  case'hdl':{const h=S.hist.find(x=>x.id===b.dataset.id);
+   toast('Re-downloading '+h.file+'. Prototype only.');break}
+  case'hrun':{const h=S.hist.find(x=>x.id===b.dataset.id);
+   const t3=S.tpl.find(x=>x.ent===h.ent&&x.name===h.name&&x.status==='Active');
+   if(!t3){toast('That report is no longer active, so it cannot be re-run.');break}
+   S.ent=h.ent;S.run.id=t3.id;S.run.preset='custom';S.run.from=h.from;S.run.to=h.to;
+   S.run.res={id:t3.id,from:h.from,to:h.to,at:Date.now()};
+   S.tab='run';render(false);toast('Rebuilt with the latest data');break}
+  case'hclear':{const n=histFor().length;
+   ask('Clear history?','This removes the '+n+' record'+(n===1?'':'s')+' shown for this client. In the real product an audit trail cannot be cleared.','Clear',()=>{
+     const keep=new Set(histFor().map(h=>h.id));
+     S.hist=S.hist.filter(h=>!keep.has(h.id));saveH();render();toast('History cleared')},true);break}
+ }});
+
+$('#main').addEventListener('input',e=>{
+ const el=e.target,t=S.draft,b=el.dataset.b;
+ if(el.id==='q'){S.q=el.value;const p=el.selectionStart;render();const n=$('#q');if(n){n.focus();n.setSelectionRange(p,p)}return}
+ if(el.id==='hq'){S.hq=el.value;const p=el.selectionStart;render();const n=$('#hq');if(n){n.focus();n.setSelectionRange(p,p)}return}
+ if(el.id==='pickQ'){S.pickQ=el.value;const p=el.selectionStart;render();const n=$('#pickQ');if(n){n.focus();n.setSelectionRange(p,p)}return}
+ if(!t)return;
+ if(b==='name'||b==='desc'){t[b]=el.value;const s=document.querySelector('.sent');if(s&&b==='name')s.innerHTML=sentence(t);return}
+ if(b==='colLabel'){t.columns[+el.dataset.col].label=el.value;return}
+ if(b==='fVal'&&el.tagName==='INPUT'){t.filters[+el.dataset.fi].v=el.value;return}});
+
+$('#main').addEventListener('change',e=>{
+ const el=e.target,t=S.draft,b=el.dataset.b;
+ if(b==='ent'){S.ent=el.value;S.run.res=null;render();return}
+ if(b==='runId'){S.run.id=el.value;render();return}
+ if(b==='rFrom'||b==='rTo'){S.run[b==='rFrom'?'from':'to']=el.value;S.run.preset='custom';render();return}
+ if(b==='pickGrp'){S.pickGrp=el.value;render();return}
+ if(!t)return;
+ switch(b){
+  case'dEnt':t.ent=el.value;render();break;
+  case'status':t.status=el.value;render();break;
+  case'dateBasis':t.dateBasis=el.value;render();break;
+  case'colMv':t.columns[+el.dataset.col].mv=el.value;render();break;
+  case'fKey':{const f=t.filters[+el.dataset.fi];f.k=el.value;const fd=fld(t.wf,f.k);
+   f.op=fd?OPS[fd.t][0][0]:'';f.v=fd&&fd.t==='enum'?[]:'';render();break}
+  case'fOp':{const f=t.filters[+el.dataset.fi];f.op=el.value;if(NOVAL.includes(f.op))f.v='';render();break}
+  case'fVal':{const f=t.filters[+el.dataset.fi];
+   f.v=el.multiple?[...el.selectedOptions].map(o=>o.value):el.value;render();break}
+ }});
+
+render(false);
+</script>
+</body>
+</html>
